@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postzegel-backend-configmap
+  
+data:
+  SPRING_PROFILES_ACTIVE: "base"

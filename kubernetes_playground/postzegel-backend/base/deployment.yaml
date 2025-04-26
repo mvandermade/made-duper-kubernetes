@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postzegel-backend-deployment
+  
+spec:
+  replicas: 3
+  template:
+    spec:
+      containers:
+      - name: postzegel-backend
+        image: ghcr.io/mvandermade/made-funicular-postzegel-backend-kotlin:ab73bab0acffa8c91d491d10a896c7ebdc4a5ea7
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          valueFrom:
+            configMapKeyRef:
+              name: postzegel-backend-configmap
+              key: SPRING_PROFILES_ACTIVE
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+              name: postzegel-backend-configmap
+              key: DB_USER
+        - name: DB_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: postzegel-backend-configmap
+              key: DB_PASSWORD
+        - name: DB_JDBC_URL
+          valueFrom:
+            configMapKeyRef:
+              name: postzegel-backend-configmap
+              key: DB_JDBC_URL                            

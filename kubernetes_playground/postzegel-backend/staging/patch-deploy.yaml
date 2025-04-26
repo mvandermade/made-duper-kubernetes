@@ -1,0 +1,7 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postzegel-backend-deployment
+  
+spec:
+  replicas: 1

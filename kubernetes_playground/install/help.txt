@@ -1,0 +1,9 @@
+sudo k8s kubectl get all --all-namespaces
+
+add it to your bashrc
+
+nano ~/.bashrc
+OR
+nano ~/.bash_aliases
+
+alias k='sudo k8s kubectl'
