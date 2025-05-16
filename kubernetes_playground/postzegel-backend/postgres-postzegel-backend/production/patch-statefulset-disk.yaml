@@ -1,33 +1,34 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: postgres
+  name: postgres-postzegel-backend
 spec:
   template:
     spec:
       containers:
       - image: postgres:17-alpine
-        name: postgres
+        name: postgres-postzegel-backend
         env:
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: postgres-secret
+              name: postgres-postzegel-backend-secret
               key: password
         - name: POSTGRES_USER
           valueFrom:
             secretKeyRef:
-              name: postgres-secret
+              name: postgres-postzegel-backend-secret
               key: user
         - name: POSTGRES_DB
           value: postzegel-backend
         ports:
         - containerPort: 5432
-          name: postgres
+          # Limit of 15 characters for the name
+          name: postgres-pb
         volumeMounts:
-        - name: postgres-data
+        - name: postgres-postzegel-backend-data
           mountPath: /var/lib/postgresql/data
       volumes:
-      - name: postgres-data
+      - name: postgres-postzegel-backend-data
         persistentVolumeClaim:
-          claimName: postgres-pvc
+          claimName: postgres-postzegel-backend-persistent-volume-claim

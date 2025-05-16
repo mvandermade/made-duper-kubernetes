@@ -1,45 +1,45 @@
 #!/bin/sh
 # This script is used to run the backend of the Postzegel application in a local development environment.
 # It sets up the environment, builds the application, and starts the server.
-# Usage: ./postzegel-backend.sh
+# Usage: ./postzegel-backend.sh {start|stop|destroy|info|logs}
 NAMESPACE=postzegel-backend
 PERSISTENT_VOLUME_PATH=/Users/martynem/postzegel/volumes
 
-postgresPath="$PERSISTENT_VOLUME_PATH/postgres"
+postgresPath="$PERSISTENT_VOLUME_PATH/postgres-postzegel-backend-persistent-volume"
 
 SCRIPT_DIR=$(pwd)
 
 start() {
   cd $SCRIPT_DIR
-  echo "Creating path $PERSISTENT_VOLUME_PATH for pv storage..."
+  echo "Creating path $PERSISTENT_VOLUME_PATH for persistent-volume storage..."
   mkdir -p $PERSISTENT_VOLUME_PATH
   kubectl create namespace $NAMESPACE
 
-  cd ../postgres/init_manually_first
+  cd ../postgres-postzegel-backend/init_manually_first
   mkdir -p $postgresPath
-  cat persistent-volume.yaml | sed 's@$PERSISTENT_VOLUME_PATH@'"$postgresPath"'@g' | kubectl apply -f -
+  cat persistent-volume.yaml | sed 's@$PERSISTENT_VOLUME_PATH@'"$postgresPath"'@g' | kubectl -n $NAMESPACE apply -f -
   kubectl -n $NAMESPACE apply -f persistent-volume-claim.yaml
   cd $SCRIPT_DIR
-  cd ../postgres
+  cd ../postgres-postzegel-backend
   kubectl -n $NAMESPACE apply -k production
 
   cd $SCRIPT_DIR
 
-  cd ../postzegel-backend
+  cd ../app
   kubectl -n $NAMESPACE apply -k staging
 }
 
 stop() {
   cd $SCRIPT_DIR
   echo "Stopping the Postzegel backend..."
-  cd ../postzegel-backend
+  cd ../app
   kubectl -n $NAMESPACE delete -k staging
 }
 
 destroy() {
   cd $SCRIPT_DIR
   echo "Stopping persistent objects..."
-  cd ../postgres
+  cd ../postgres-postzegel-backend
   kubectl -n $NAMESPACE delete -k production
   cd init_manually_first
   kubectl -n $NAMESPACE delete -f persistent-volume-claim.yaml
@@ -80,6 +80,9 @@ info() {
   echo "get secrets"
   kubectl -n $NAMESPACE get secrets
   echo "\n"
+  echo "get statefulsets"
+  kubectl -n $NAMESPACE get statefulsets
+  echo "\n"
   echo "-----------------------------------diskspace ...-----------------------------------"
   echo $(du -hs $postgresPath)
 }
@@ -105,8 +108,11 @@ case "$1" in
   logs)
     logs $2
     ;;
+  namespace)
+    echo $NAMESPACE
+    ;;
   *)
-    echo "Usage: $0 {start|stop|destroy|info|logs}" >&2
+    echo "Usage: $0 {start|stop|destroy|info|logs|namespace}" >&2
     exit 1
     ;;
 esac

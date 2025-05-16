@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-postzegel-backend
+  labels:
+    app: postgres-postzegel-backend
+spec:
+  selector:
+    matchLabels:
+      app: postgres-postzegel-backend
+  template:
+    metadata:
+      labels:
+        app: postgres-postzegel-backend

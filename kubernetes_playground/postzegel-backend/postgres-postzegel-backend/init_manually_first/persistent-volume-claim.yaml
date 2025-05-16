@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: postgres-pvc
+  name: postgres-postzegel-backend-persistent-volume-claim
 spec:
   accessModes:
     - ReadWriteOnce
@@ -9,4 +9,4 @@ spec:
     requests:
       storage: 1Gi
   storageClassName: standard
-  volumeName: postgres-persistent-volume
+  volumeName: postgres-postzegel-backend-persistent-volume
