@@ -7,5 +7,9 @@ spec:
   type: LoadBalancer
   ports:
   - protocol: TCP
-    port: 8080
+    # port running on docker desktop
+    port: 31313
+    # on pod
+    targetPort: 8080
+    # on host running ubuntu
     nodePort: 31313

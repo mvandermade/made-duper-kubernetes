@@ -9,12 +9,4 @@ spec:
     storage: 1Gi
   storageClassName: standard
   hostPath:
-    path: /home/martijn/kube-pv/postgres-persistent-volume
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - cubi
+    path: $PERSISTENT_VOLUME_PATH/postgres-persistent-volume

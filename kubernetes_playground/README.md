@@ -1,6 +1,12 @@
 # Kubernetes playground
 For trying out kubernetes using kustomize.
 
+# Check out the scripts
+## How
+- Install Docker desktop and activate kubernetes
+- Navigate to the folder local_dev
+- Run the script using bash: `./postzegel-backend.sh start`
+
 ## Installation
 For ubuntu see the install folder
 
@@ -22,3 +28,5 @@ To get rid of the kustomization:
 k delete -k staging
 k delete -k production
 ```
+
+# Local dev environment using docker desktop
