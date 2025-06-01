@@ -6,4 +6,4 @@ sudo k8s status
 
 # Kubectl tips
 
-k get all -owide
+kubectl get all -owide

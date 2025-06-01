@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postzegel-reporter-deployment
+  
+spec:
+  replicas: 3
+  template:
+    spec:
+      containers:
+      - name: postzegel-reporter
+        image: ghcr.io/mvandermade/made-funicular-postzegel-reporter-kotlin:d52c6a11505ee01d06c49233566d74dd51fdf89d
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          valueFrom:
+            configMapKeyRef:
+              name: postzegel-reporter-configmap
+              key: SPRING_PROFILES_ACTIVE
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+              name: postzegel-reporter-configmap
+              key: DB_USER
+        - name: DB_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: postzegel-reporter-configmap
+              key: DB_PASSWORD
+        - name: DB_JDBC_URL
+          valueFrom:
+            configMapKeyRef:
+              name: postzegel-reporter-configmap
+              key: DB_JDBC_URL
+        - name: KAFKA_BOOTSTRAP_SERVERS
+          valueFrom:
+            configMapKeyRef:
+              name: postzegel-reporter-configmap
+              key: KAFKA_BOOTSTRAP_SERVERS   
+        - name: KAFKA_CLIENT_ID
+          valueFrom:
+            configMapKeyRef:
+              name: postzegel-reporter-configmap
+              key: KAFKA_CLIENT_ID
+        - name: STAMP_SERVER_URL
+          valueFrom:
+            configMapKeyRef:
+              name: postzegel-reporter-configmap
+              key: STAMP_SERVER_URL

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postzegel-reporter-configmap
+
+data:
+  SPRING_PROFILES_ACTIVE: "production"
+  DB_USER: "admin"
+  DB_PASSWORD: "admin"
+  DB_JDBC_URL: "jdbc:postgresql://postgres-postzegel-reporter:5432/postzegel-reporter"
+  KAFKA_BOOTSTRAP_SERVERS: "kafka-postzegel-reporter:9092"
+  KAFKA_CLIENT_ID: "stamp-reporter"
+  STAMP_SERVER_URL: "http://postzegel-backend-service.postzegel-backend.svc.cluster.local:8080"

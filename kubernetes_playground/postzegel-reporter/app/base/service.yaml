@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: postzegel-reporter-service
+  
+spec:
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    # port running on docker desktop
+    port: 31314
+    # on pod
+    targetPort: 8080
+    # on host running ubuntu
+    nodePort: 31314

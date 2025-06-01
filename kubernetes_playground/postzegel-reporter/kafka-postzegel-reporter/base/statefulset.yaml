@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: kafka-postzegel-reporter
+  labels:
+    app: kafka-postzegel-reporter
+spec:
+  selector:
+    matchLabels:
+      app: kafka-postzegel-reporter
+  template:
+    metadata:
+      labels:
+        app: kafka-postzegel-reporter

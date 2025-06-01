@@ -6,4 +6,4 @@ nano ~/.bashrc
 OR
 nano ~/.bash_aliases
 
-alias k='sudo k8s kubectl'
+alias kubectl='sudo k8s kubectl'

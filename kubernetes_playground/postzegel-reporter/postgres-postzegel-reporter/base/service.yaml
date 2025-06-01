@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-postzegel-reporter
+  labels:
+    app: postgres-postzegel-reporter
+spec:
+  ports:
+    - port: 5432
+  selector:
+    app: postgres-postzegel-reporter
