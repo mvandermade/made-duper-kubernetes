@@ -2,6 +2,10 @@
 For trying out kubernetes using kustomize.
 
 # Check out the scripts
+## local_dev
+The local_dev folders contain a file called made.sh.
+Change the file so that your persistent volume variable is OK. Then run it in a sh compatible shell: `./made.sh start` For commands run plain `./made.sh`
+
 ## How
 - Install Docker desktop and activate kubernetes
 - Navigate to the folder local_dev
