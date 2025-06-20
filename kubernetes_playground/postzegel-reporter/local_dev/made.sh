@@ -1,6 +1,6 @@
 #!/bin/sh
 # This script is used to run the reporter of the Postzegel application in a local development environment.
-# It sets up the environment, and starts the server.
+# It sets up the environment, and starts the reporter.
 # Usage: ./made.sh {start|stop|destroy|info|logs}
 NAMESPACE=postzegel-reporter
 PERSISTENT_VOLUME_PATH=/Users/martynem/postzegel/volumes
