@@ -5,18 +5,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-fup-io-balancer-dpl
+  name: {{ .Release.Name }}-dpl
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
     matchLabels:
-      kind: {{ .Release.Name }}-fup-io-balancer
+      kind: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        kind: {{ .Release.Name }}-fup-io-balancer
+        kind: {{ .Release.Name }}
     spec:
       dnsPolicy: ClusterFirst
       enableServiceLinks: true

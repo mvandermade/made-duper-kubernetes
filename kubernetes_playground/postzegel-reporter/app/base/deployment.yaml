@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
       - name: postzegel-reporter
-        image: ghcr.io/mvandermade/made-funicular-postzegel-reporter-kotlin:d52c6a11505ee01d06c49233566d74dd51fdf89d
+        image: ghcr.io/mvandermade/fup-reporter-kotlin:e048f79b798d31350ad9b9a02ab5a12400052d00
         ports:
         - containerPort: 8080
         env:
@@ -48,3 +48,8 @@ spec:
             configMapKeyRef:
               name: postzegel-reporter-configmap
               key: STAMP_SERVER_URL
+        - name: IO_BALANCER_ADDRESS
+          valueFrom:
+            configMapKeyRef:
+              name: postzegel-reporter-configmap
+              key: IO_BALANCER_ADDRESS
