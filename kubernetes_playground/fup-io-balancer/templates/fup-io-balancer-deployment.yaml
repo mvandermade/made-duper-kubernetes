@@ -1,0 +1,31 @@
+{{ if not (hasKey .Values "fup_io_balancer_version") }}
+    {{ fail ".Values.fup-io-balancer_version is required" }}
+{{ end }}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-fup-io-balancer-dpl
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      kind: {{ .Release.Name }}-fup-io-balancer
+  template:
+    metadata:
+      labels:
+        kind: {{ .Release.Name }}-fup-io-balancer
+    spec:
+      dnsPolicy: ClusterFirst
+      enableServiceLinks: true
+      containers:
+        - name: {{ .Release.Name }}-pod
+          image: "ghcr.io/mvandermade/fup-io-balancer:{{ .Values.fup_io_balancer_version }}"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 7331
+---
+

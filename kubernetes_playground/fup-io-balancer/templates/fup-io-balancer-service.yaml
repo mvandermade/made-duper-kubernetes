@@ -1,0 +1,14 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-fup-io-balancer-svc
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 7331
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    kind: {{ .Release.Name }}-fup-io-balancer
